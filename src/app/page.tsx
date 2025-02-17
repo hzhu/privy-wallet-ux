@@ -16,13 +16,17 @@ export default function Home() {
       <button onClick={connectWallet}>connect</button>
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <ul>
-          {solanaWallets.map((wallet, index) => {
+          {solanaWallets.map((wallet) => {
             return (
-              <li
-                key={wallet.meta.id}
-                className={index === 0 ? "font-bold text-green-600" : ""}
-              >
+              <li key={wallet.meta.id}>
                 {wallet.meta.name} - {wallet.address}
+                <button
+                  onClick={() => {
+                    wallet.disconnect();
+                  }}
+                >
+                  disconnect
+                </button>
               </li>
             );
           })}

@@ -14,7 +14,7 @@ import {
 
 const solanaConnectors = toSolanaWalletConnectors({
   // By default, shouldAutoConnect is enabled
-  shouldAutoConnect: false,
+  shouldAutoConnect: true,
 });
 
 const queryClient = new QueryClient();
