@@ -1,7 +1,7 @@
 "use client";
 
 import { base, mainnet } from "wagmi/chains";
-import { PrivyProvider } from "@privy-io/react-auth";
+import { PrivyProvider, WalletListEntry } from "@privy-io/react-auth";
 import { http, createConfig, WagmiProvider } from "wagmi";
 import { toSolanaWalletConnectors } from "@privy-io/react-auth/solana";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -39,6 +39,8 @@ export const config = createConfig({
   },
 });
 
+const needsInjectedWalletFallback = false;
+
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <WagmiProvider config={config}>
@@ -51,6 +53,20 @@ export function Providers({ children }: { children: React.ReactNode }) {
               accentColor: "#676FFF",
               logo: "https://your-logo-url",
               walletChainType: "ethereum-and-solana",
+              walletList: [
+                // order is display order in UI
+                "coinbase_wallet",
+                "metamask",
+                "phantom",
+                "rainbow",
+                "rabby_wallet",
+                "backpack",
+                "zerion",
+                "wallet_connect",
+                ...(needsInjectedWalletFallback
+                  ? ["detected_ethereum_wallets" as WalletListEntry]
+                  : []),
+              ],
             },
             embeddedWallets: {
               createOnLogin: "users-without-wallets",
